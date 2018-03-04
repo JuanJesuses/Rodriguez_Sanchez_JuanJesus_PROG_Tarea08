@@ -143,6 +143,11 @@ public class ControladorAlquilerVehiculos implements IControladorAlquilerVehicul
 		return modelo.obtenerAlquileresCliente(dni);
 	}
 	
+	@Override
+	public List<Alquiler> obtenerAlquileresVehiculo(String matricula){
+		return modelo.obtenerAlquileresVehiculo(matricula);
+	}
+	
 	/**
 	 * Método que llama al método que añade los datos de prueba
 	 * para comprobar el funcionamiento de la aplización

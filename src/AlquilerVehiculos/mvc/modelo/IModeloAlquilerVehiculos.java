@@ -34,6 +34,8 @@ public interface IModeloAlquilerVehiculos {
 	List <Alquiler> obtenerAlquileresAbiertos();
 	
 	List <Alquiler> obtenerAlquileresCliente(String dni);
+	
+	List <Alquiler> obtenerAlquileresVehiculo(String matricula);
 
 	//void anadirDatosPrueba();
 	

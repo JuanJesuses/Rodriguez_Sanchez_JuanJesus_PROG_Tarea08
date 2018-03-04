@@ -187,5 +187,20 @@ public class Alquileres {
 		return alquileresCliente;
 		
 	}
+	
+	public List<Alquiler> obtenerAlquileresVehiculo(String matricula){
+		int posicion = 0;
+		List<Alquiler> alquileresVehiculo = new Vector<Alquiler>();
+		
+		while(posicion < alquileres.size()) {
+			if(alquileres.get(posicion).getVehiculo().getMatricula().equals(matricula)) {
+				alquileresVehiculo.add(alquileres.get(posicion));
+			}
+			
+			posicion++;
+		}
+		
+		return alquileresVehiculo;
+	}
 
 }
