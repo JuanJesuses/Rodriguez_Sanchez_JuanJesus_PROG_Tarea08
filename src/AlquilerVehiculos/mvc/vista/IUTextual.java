@@ -207,7 +207,7 @@ public class IUTextual implements IVistaAlquilerVehiculos {
 	@Override
 	public void anadirVehiculo() {
 		Consola.mostrarCabecera("Añadir Vehículo");
-		int tipoVehiculo = Consola.elegirTipoVehiculo();		
+		int tipoVehiculo = 0;		
 		
 		try {
 			Vehiculo vehiculo = Consola.leerVehiculo();
