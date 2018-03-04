@@ -157,5 +157,19 @@ public class Alquileres {
 		}
 		return encontrado ? indice : alquileres.size();
 	}
+	
+	public List<Alquiler> obtenerAlquileresAbiertos(){
+		int posicion = 0;
+		
+		List<Alquiler> alquileresAbiertos = new Vector<Alquiler>();
+		while(posicion < alquileres.size()) {
+			if(alquileres.get(posicion).getDias() == 0) {
+				alquileresAbiertos.add(alquileres.get(posicion));
+			}
+			posicion++;
+		}
+		
+		return alquileresAbiertos;
+	}
 
 }

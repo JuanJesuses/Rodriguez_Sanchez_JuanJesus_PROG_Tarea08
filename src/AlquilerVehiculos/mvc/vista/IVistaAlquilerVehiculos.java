@@ -31,5 +31,7 @@ public interface IVistaAlquilerVehiculos {
 	void borrarCliente();
 
 	void anadirCliente();
+	
+	void obtenerAlquileresAbiertos();
 
 }

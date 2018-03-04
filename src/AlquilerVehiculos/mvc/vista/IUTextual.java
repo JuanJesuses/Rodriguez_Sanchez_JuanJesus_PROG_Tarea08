@@ -112,6 +112,15 @@ public class IUTextual implements IVistaAlquilerVehiculos {
 		}
 	}
 	
+	@Override
+	public void obtenerAlquileresAbiertos() {
+		Consola.mostrarCabecera("ALQUILERES ABIERTOS");
+		
+		for(Alquiler alquileresAbiertos : controlador.obtenerAlquileresAbiertos()) {
+			System.out.println(alquileresAbiertos);
+		}
+	}
+	
 	/* (non-Javadoc)
 	 * @see AlquilerVehiculos.mvc.vista.IVistaAlquilerVehiculos#listaVehiculos()
 	 */
