@@ -97,7 +97,7 @@ public class AlquilerVehiculos implements IModeloAlquilerVehiculos {
 	 * @see AlquilerVehiculos.mvc.modelo.IModeloAlquilerVehiculos#obtenerVehiculos()
 	 */
 	@Override
-	public Vehiculo[] obtenerVehiculos() {
+	public List<Vehiculo> obtenerVehiculos() {
 		return vehiculos.getVehiculos();
 	}
 	

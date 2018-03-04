@@ -17,17 +17,13 @@ public interface IModeloAlquilerVehiculos {
 	
 	List <Cliente> obtenerClientes();
 
-//	Cliente[] obtenerClientes();
-
 	void anadirVehiculo(Vehiculo vehiculo, TipoVehiculo tipoVehiculo);
 
 	void borrarVehiculo(String matricula);
 
 	Vehiculo buscarVehiculo(String matricula);
 	
-//	List <Vehiculo> obtenerVehiculos();
-
-	Vehiculo[] obtenerVehiculos();
+	List <Vehiculo> obtenerVehiculos();
 
 	void abrirAlquiler(Cliente cliente, Vehiculo vehiculo);
 

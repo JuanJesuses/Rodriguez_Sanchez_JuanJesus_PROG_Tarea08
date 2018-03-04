@@ -19,9 +19,7 @@ public interface IControladorAlquilerVehiculos {
 
 	Vehiculo buscarVehiculo(String matricula);
 	
-	//List <Vehiculo> obtenerVehiculos();
-
-	Vehiculo[] obtenerVehiculos();
+	List <Vehiculo> obtenerVehiculos();
 
 	void anadirCliente(Cliente cliente);
 
