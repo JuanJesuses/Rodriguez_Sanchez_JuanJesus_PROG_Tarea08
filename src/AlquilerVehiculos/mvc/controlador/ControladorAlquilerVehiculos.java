@@ -129,7 +129,7 @@ public class ControladorAlquilerVehiculos implements IControladorAlquilerVehicul
 	 * @see AlquilerVehiculos.mvc.controlador.IControladorAlquilerVehiculos#obtenerAlquileres()
 	 */
 	@Override
-	public Alquiler[] obtenerAlquileres() {
+	public List<Alquiler> obtenerAlquileres() {
 		return modelo.obtenerAlquileres();
 	}
 	

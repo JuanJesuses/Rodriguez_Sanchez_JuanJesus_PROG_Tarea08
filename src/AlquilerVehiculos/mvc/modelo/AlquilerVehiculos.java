@@ -61,15 +61,6 @@ public class AlquilerVehiculos implements IModeloAlquilerVehiculos {
 	}
 	
 	/* (non-Javadoc)
-	 * @see AlquilerVehiculos.mvc.modelo.IModeloAlquilerVehiculos#obtenerClientes()
-	 */
-	/**
-	@Override
-	public Cliente[] obtenerClientes() {
-		return clientes.getClientes();
-	}*/
-	
-	/* (non-Javadoc)
 	 * @see AlquilerVehiculos.mvc.modelo.IModeloAlquilerVehiculos#anadirVehiculo(AlquilerVehiculos.mvc.modelo.dominio.vehiculo.Vehiculo, AlquilerVehiculos.mvc.modelo.dominio.vehiculo.TipoVehiculo)
 	 */
 	@Override
@@ -106,7 +97,14 @@ public class AlquilerVehiculos implements IModeloAlquilerVehiculos {
 	 */
 	@Override
 	public void abrirAlquiler (Cliente cliente, Vehiculo vehiculo) {
+		comprobarExistenciaVehiculo(vehiculo);
 		alquileres.abrirAlquiler(cliente, vehiculo);
+	}
+	
+	private void comprobarExistenciaVehiculo(Vehiculo vehiculo) {
+		if(vehiculos.buscarVehiculo(vehiculo.getMatricula()) == null) {
+			throw new ExcepcionAlquilerVehiculos ("El vehículo no existe.");
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -114,6 +112,7 @@ public class AlquilerVehiculos implements IModeloAlquilerVehiculos {
 	 */
 	@Override
 	public void cerrarAlquiler (Cliente cliente, Vehiculo vehiculo) {
+		comprobarExistenciaVehiculo(vehiculo);
 		alquileres.cerrarAlquiler(cliente, vehiculo);
 	}
 	
@@ -121,7 +120,7 @@ public class AlquilerVehiculos implements IModeloAlquilerVehiculos {
 	 * @see AlquilerVehiculos.mvc.modelo.IModeloAlquilerVehiculos#obtenerAlquileres()
 	 */
 	@Override
-	public Alquiler[] obtenerAlquileres() {
+	public List<Alquiler> obtenerAlquileres() {
 		return alquileres.getAlquileres();
 	}
 	

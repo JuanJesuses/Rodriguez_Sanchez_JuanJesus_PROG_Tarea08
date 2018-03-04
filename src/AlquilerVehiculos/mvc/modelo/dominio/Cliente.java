@@ -56,7 +56,7 @@ public class Cliente implements Serializable{
 	
 	
 	public static void aumentarUltimoIdentificador(int cantidad) {
-		if(cantidad > 0)
+		if(cantidad >= 0)
 			ultimoIdentificador += cantidad;
 		else
 			throw new ExcepcionAlquilerVehiculos("Sólo se puede aumentar el último identificador");
@@ -116,7 +116,7 @@ public class Cliente implements Serializable{
 		return String.format("Identificador: %d Nombre: %s DNI: %s %s %n", 
 				identificador, nombre, dni, direccionPostal);
 	}
-	/**
+	
 	@Override
 	public boolean equals(Object otro) {
 		if(otro == null || !(otro instanceof Cliente)) {
@@ -133,5 +133,5 @@ public class Cliente implements Serializable{
 	@Override
 	public int hashCode() {
 		return dni.hashCode();
-	}*/
+	}
 }

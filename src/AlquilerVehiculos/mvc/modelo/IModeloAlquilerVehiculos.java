@@ -29,9 +29,7 @@ public interface IModeloAlquilerVehiculos {
 
 	void cerrarAlquiler(Cliente cliente, Vehiculo vehiculo);
 	
-	//List <Alquiler> obtenerAlquileres();
-
-	Alquiler[] obtenerAlquileres();
+	List <Alquiler> obtenerAlquileres();
 
 	//void anadirDatosPrueba();
 	

@@ -17,6 +17,10 @@ import AlquilerVehiculos.mvc.modelo.dominio.vehiculo.Vehiculo;
  */
 public class Alquiler implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Date fecha;
 	private int dias;
 	private final SimpleDateFormat FORMATO_FECHA = new SimpleDateFormat ("dd/MM/yyyy HH:mm");
@@ -100,9 +104,19 @@ public class Alquiler implements Serializable{
 		return String.format("-::ALQUILER::- \nFecha: %s Días: %d Precio: %.2f \nCLIENTE: %s \n%s", 
 								FORMATO_FECHA.format(getFecha()), dias, getPrecio(), getCliente(), getVehiculo());
 	}
-	//@Override
-	//public String toString() {
-		//return "--:Alquiler:-- \nfecha: " + FORMATO_FECHA.format(getFecha()) + " DÍAS: " + dias + "\nPRECIO: %.2f" + getPrecio() + "\n" + cliente + "\n" + vehiculo + "";
-	//}
+	
+	public boolean equals (Object otro) {
+		if (otro == null || !(otro instanceof Alquiler)) {
+			return false;
+		}
+		if(otro == this) {
+			return true;
+		}
+		return vehiculo.getMatricula().equals(((Alquiler) otro).getVehiculo().getMatricula());
+	}
+	
+	public int HashCode() {
+		return vehiculo.getMatricula().hashCode();
+	}
 
 }

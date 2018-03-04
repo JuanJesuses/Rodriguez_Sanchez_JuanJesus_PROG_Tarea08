@@ -29,15 +29,11 @@ public interface IControladorAlquilerVehiculos {
 	
 	List <Cliente> obtenerClientes();
 
-	//Cliente[] obtenerClientes();
-
 	void abrirAlquiler(Cliente cliente, Vehiculo vehiculo);
 
 	void cerrarAlquiler(Cliente cliente, Vehiculo vehiculo);
 	
-	//List <Alquiler> obtenerAlquileres();
+	List <Alquiler> obtenerAlquileres();
 
-	Alquiler[] obtenerAlquileres();
 	
-
 }

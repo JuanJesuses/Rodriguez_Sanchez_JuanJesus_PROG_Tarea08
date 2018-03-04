@@ -28,14 +28,14 @@ public class Vehiculos {
 	private final String FICHERO_VEHICULOS =  "datos/vehiculos.dat";
 	
 	/**
-	 * 
+	 * Constructor de la clase Vehiculos empleando el conjunto Map 
 	 */
 	public Vehiculos () {
 		vehiculos = new HashMap<String, Vehiculo>();
 	}
 	
 	/**
-	 * 
+	 * Método que devuelve una lista de Vehículos
 	 */
 	public List<Vehiculo> getVehiculos() {
 		return new Vector<Vehiculo>(vehiculos.values());
@@ -88,7 +88,9 @@ public class Vehiculos {
 	}
 	
 	/**
-	 * 
+	 * Método para añadir los Vehículos a la lista de Vehículo
+	 * @param vehiculo
+	 * @param tipoVehiculo
 	 */
 	public void anadirVehiculo (Vehiculo vehiculo, TipoVehiculo tipoVehiculo) {
 		if (vehiculos.containsKey(vehiculo.getMatricula())) {
@@ -99,7 +101,8 @@ public class Vehiculos {
 	}
 	
 	/**
-	 * 
+	 * Método que elimina Vehiculos de la lista
+	 * @param matricula
 	 */
 	public void borrarVehiculo (String matricula) {
 		if(vehiculos.containsKey(matricula)) {

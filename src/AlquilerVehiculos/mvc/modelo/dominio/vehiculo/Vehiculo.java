@@ -137,11 +137,28 @@ public abstract class Vehiculo implements Serializable{
 	public double getFACTOR_PMA() {
 		return FACTOR_PMA;
 	}
-		
+	
 	@Override
 	public String toString() {
 		return String.format("-::VEHÍCULO::- \nMatrícula: %s Marca: %s Modelo: %s Disponible: %b\nDatos Técnicos Vehículo: %s Tipo Vehículo: %s",
 				matricula, marca, modelo, disponible, datosTecnicosVehiculo, getTipoVehiculo());
 	}
 	
+	@Override
+	public boolean equals (Object otro) {
+		if (otro == null || !(otro instanceof Vehiculo)) {
+			return false;
+		}
+		if(otro == this) {
+			return true;
+		}
+		
+		return (matricula.equals(((Vehiculo) otro).getMatricula()));
+	}
+	
+	@Override
+	public int hashCode() {
+		return matricula.hashCode();
+	}
+		
 }

@@ -58,5 +58,4 @@ public enum TipoVehiculo {
 		return (ordinal >= 0 && ordinal <= values().length -1) ? true : false;
 	}
 	
-	
 }
