@@ -33,5 +33,7 @@ public interface IVistaAlquilerVehiculos {
 	void anadirCliente();
 	
 	void obtenerAlquileresAbiertos();
+	
+	void obtenerAlquileresCliente();
 
 }

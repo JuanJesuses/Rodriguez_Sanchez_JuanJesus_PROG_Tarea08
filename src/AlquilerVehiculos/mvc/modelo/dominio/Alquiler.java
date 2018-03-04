@@ -101,7 +101,7 @@ public class Alquiler implements Serializable{
 	
 	@Override
 	public String toString() {
-		return String.format("-::ALQUILER::- \nFecha: %s Días: %d Precio: %.2f \nCLIENTE: %s \n%s", 
+		return String.format("\n-::ALQUILER::- \nFecha: %s Días: %d Precio: %.2f \nCLIENTE: %s \n%s", 
 								FORMATO_FECHA.format(getFecha()), dias, getPrecio(), getCliente(), getVehiculo());
 	}
 	

@@ -171,5 +171,21 @@ public class Alquileres {
 		
 		return alquileresAbiertos;
 	}
+	
+	public List<Alquiler> obtenerAlquileresCliente(String dni){
+		int posicion = 0;
+		List<Alquiler> alquileresCliente = new Vector<Alquiler>();
+		
+		while(posicion < alquileres.size()) {
+			if(alquileres.get(posicion).getCliente().getDni().equals(dni)) {
+				alquileresCliente.add(alquileres.get(posicion));
+			}
+			
+			posicion++;
+		}
+		
+		return alquileresCliente;
+		
+	}
 
 }

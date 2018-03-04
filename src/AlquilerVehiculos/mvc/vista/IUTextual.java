@@ -121,6 +121,25 @@ public class IUTextual implements IVistaAlquilerVehiculos {
 		}
 	}
 	
+	@Override
+	public void obtenerAlquileresCliente() {
+		String dni = Consola.leerDni();
+		
+		try {
+			controlador.buscarCliente(dni);
+			Consola.mostrarCabecera("Listado de Alquileres por Cliente");
+			if(controlador.obtenerAlquileresCliente(dni).size() == 0) {
+				System.out.println("El cliente solicitado no tiene alquileres en curso");
+			}else {
+				for(Alquiler alquileresCliente : controlador.obtenerAlquileresCliente(dni)) {
+					System.out.println(alquileresCliente);
+				}
+			}
+		}catch (ExcepcionAlquilerVehiculos e) {
+			System.out.printf("\nERROR: %s%n%n", e.getMessage());
+		}
+	}
+	
 	/* (non-Javadoc)
 	 * @see AlquilerVehiculos.mvc.vista.IVistaAlquilerVehiculos#listaVehiculos()
 	 */

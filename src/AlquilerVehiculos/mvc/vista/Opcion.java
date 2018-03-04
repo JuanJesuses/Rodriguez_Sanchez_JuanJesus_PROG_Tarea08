@@ -80,6 +80,12 @@ public enum Opcion {
 		public void ejecutar() {
 			vista.obtenerAlquileresAbiertos();
 		}
+	},
+		
+	LISTAR_ALQUILERES_CLIENTE("Listado de Alquileres por Cliente"){
+		public void ejecutar() {
+			vista.obtenerAlquileresCliente();
+		}
 	};
 	
 	private String mensaje;
