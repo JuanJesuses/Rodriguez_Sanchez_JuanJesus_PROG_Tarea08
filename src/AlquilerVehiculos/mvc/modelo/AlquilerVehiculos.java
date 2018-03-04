@@ -1,5 +1,7 @@
 package AlquilerVehiculos.mvc.modelo;
 
+import java.util.List;
+
 import AlquilerVehiculos.mvc.modelo.dao.Alquileres;
 import AlquilerVehiculos.mvc.modelo.dao.Clientes;
 import AlquilerVehiculos.mvc.modelo.dao.Vehiculos;
@@ -53,13 +55,19 @@ public class AlquilerVehiculos implements IModeloAlquilerVehiculos {
 		return clientes.buscarCliente(dni);
 	}
 	
+	@Override
+	public List <Cliente> obtenerClientes(){
+		return clientes.getClientes();
+	}
+	
 	/* (non-Javadoc)
 	 * @see AlquilerVehiculos.mvc.modelo.IModeloAlquilerVehiculos#obtenerClientes()
 	 */
+	/**
 	@Override
 	public Cliente[] obtenerClientes() {
 		return clientes.getClientes();
-	}
+	}*/
 	
 	/* (non-Javadoc)
 	 * @see AlquilerVehiculos.mvc.modelo.IModeloAlquilerVehiculos#anadirVehiculo(AlquilerVehiculos.mvc.modelo.dominio.vehiculo.Vehiculo, AlquilerVehiculos.mvc.modelo.dominio.vehiculo.TipoVehiculo)

@@ -1,5 +1,7 @@
 package AlquilerVehiculos.mvc.controlador;
 
+import java.util.List;
+
 import AlquilerVehiculos.mvc.modelo.IModeloAlquilerVehiculos;
 import AlquilerVehiculos.mvc.modelo.dao.Alquileres;
 import AlquilerVehiculos.mvc.modelo.dao.Clientes;
@@ -33,8 +35,8 @@ public class ControladorAlquilerVehiculos implements IControladorAlquilerVehicul
 	public void comenzar() {
 		//modelo.anadirDatosPrueba();
 		
-		modelo.leerVehiculos();
 		modelo.leerClientes();
+		modelo.leerVehiculos();
 		modelo.leerAlquileres();
 		vista.comenzar();
 	}
@@ -102,11 +104,8 @@ public class ControladorAlquilerVehiculos implements IControladorAlquilerVehicul
 		return modelo.buscarCliente(dni);
 	}
 	
-	/* (non-Javadoc)
-	 * @see AlquilerVehiculos.mvc.controlador.IControladorAlquilerVehiculos#obtenerClientes()
-	 */
 	@Override
-	public Cliente[] obtenerClientes() {
+	public List<Cliente> obtenerClientes(){
 		return modelo.obtenerClientes();
 	}
 	

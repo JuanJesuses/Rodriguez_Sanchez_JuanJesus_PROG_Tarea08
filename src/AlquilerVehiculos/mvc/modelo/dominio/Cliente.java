@@ -56,11 +56,11 @@ public class Cliente implements Serializable{
 	
 	
 	public static void aumentarUltimoIdentificador(int cantidad) {
-		if(cantidad > 0) {
+		if(cantidad > 0)
 			ultimoIdentificador += cantidad;
-		}else {
+		else
 			throw new ExcepcionAlquilerVehiculos("Sólo se puede aumentar el último identificador");
-		}
+		
 	}
 	/**
 	 * Método que comprueba que el patrón del DNI
@@ -116,4 +116,22 @@ public class Cliente implements Serializable{
 		return String.format("Identificador: %d Nombre: %s DNI: %s %s %n", 
 				identificador, nombre, dni, direccionPostal);
 	}
+	/**
+	@Override
+	public boolean equals(Object otro) {
+		if(otro == null || !(otro instanceof Cliente)) {
+			return false;
+		}
+		
+		if(otro == this) {
+			return true;
+		}
+		
+		return (dni.equals(((Cliente)otro).getDni()));
+	}
+	
+	@Override
+	public int hashCode() {
+		return dni.hashCode();
+	}*/
 }

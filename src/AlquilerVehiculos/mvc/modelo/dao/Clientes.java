@@ -1,5 +1,6 @@
 package AlquilerVehiculos.mvc.modelo.dao;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,40 +8,52 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
 import AlquilerVehiculos.mvc.modelo.dominio.Cliente;
 import AlquilerVehiculos.mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 
 /**
- * Clase que contiene el array donde se almacenarán
+ * Clase que contiene el mapa donde se almacenarán
  * los objetos de tipo Cliente
  * @author john
  *
  */
 public class Clientes {
-
-	private Cliente[] clientes;
-	private final int MAX_CLIENTES = 20;
+	
+	private Map<String, Cliente> clientes;
 	private final String FICHERO_CLIENTES = "datos/clientes.dat";
 			
 	/**
-	 * Constructor de la clase que crea el array
-	 * y lo inicializa a MAX_CLIENTES
+	 * Constructor de la clase Clientes empleando el conjunto Map
 	 */
 	public Clientes() {
-		clientes = new Cliente[MAX_CLIENTES];
+		clientes = new HashMap<String, Cliente>();
 	}
 	
 	/**
-	 * Método de tipo array que devuelve una copia del array
-	 * @return el array de clientes
+	 * Método que devuelve los clientes de una lista ordenada
 	 */
-	public Cliente[] getClientes() {
-		return clientes.clone();
+	public List<Cliente> getClientes() {
+		
+		List<Cliente> clientesOrdenados = new Vector<Cliente>(clientes.values());
+		
+		Collections.sort(clientesOrdenados, new Comparator<Cliente>() {
+			public int compare(Cliente uno, Cliente otro) {
+				return uno.getNombre().compareTo(otro.getNombre());
+			}
+		});
+		
+		return clientesOrdenados;
 	}
 	
 	/**
-	 * Método para leer datos de clientes del fichero
+	 * Método para leer datos de clientes del fichero.
 	 */
 	public void leerClientes() {
 		
@@ -50,7 +63,11 @@ public class Clientes {
 		try {
 			entrada = new ObjectInputStream(new FileInputStream(fichero));
 			try {
-				clientes = (Cliente[])entrada.readObject();
+				while(true) {
+					Cliente cliente = (Cliente) entrada.readObject();
+					clientes.put(cliente.getDni(), cliente);
+				}
+			}catch (EOFException eo) {
 				entrada.close();
 				System.out.println("Fichero de clientes leído correctamente.");
 				Cliente.aumentarUltimoIdentificador(calcularUltimoIdentificador());
@@ -72,7 +89,9 @@ public class Clientes {
 		
 		try {
 			ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(fichero));
-			salida.writeObject((Cliente[])clientes);
+			for (Cliente cliente : clientes.values()) {
+				salida.writeObject(cliente);
+			}
 			salida.close();
 			System.out.println("Fichero de clientes escrito correctamente");
 		}catch(FileNotFoundException e) {
@@ -83,124 +102,56 @@ public class Clientes {
 	}
 		
 	/**
-	 * Método que añade un cliente al array de clientes.
-	 * Si la posición del array está ocupada o el 
-	 * array está completo, lanza la excepción.
-	 * @param cliente
+	 * Método para añadir clientes a la lista ordenada
+	 * empleando los métodos disponibles de Map
+	 * @param cliente es el cliente a añadir
 	 */
 	public void anadirCliente (Cliente cliente) {
-		int indice = buscarPrimerIndiceLibreComprobandoExistencia(cliente);
-		
-		if (indiceNoSuperaTamano(indice)) {
-			clientes[indice] = new Cliente (cliente);
+		if (clientes.containsKey(cliente.getDni())) {
+			throw new ExcepcionAlquilerVehiculos("Ya existe un cliente con ese DNI.");
 		}else {
-			throw new ExcepcionAlquilerVehiculos ("El array de clientes está lleno.");
+			clientes.put(cliente.getDni(), cliente);
 		}
 	}
 	
-	/**
-	 * Comprueba que no se supera el tamaño del array.
-	 * @param indice posición dentro del array.
-	 * @return true si no se ha superado el tamaño y false si lo ha hecho.
-	 */
-	private boolean indiceNoSuperaTamano(int indice) {
-		return indice < clientes.length;
-	}
-	
-	
-	/**
-	 * Comprueba la primera posición libre del array y lanza
-	 * una excepción si el dni del cliente pasado por parámetro 
-	 * ya está almacenado en el array.
-	 * @param cliente para añadir en caso de que no exista.
-	 * @return la primera posición libre del array.
-	 */
-	private int buscarPrimerIndiceLibreComprobandoExistencia(Cliente cliente) {
-		int indice = 0;
-		boolean encontrado = false;
 		
-		while (indiceNoSuperaTamano(indice) && !encontrado) {
-			if (clientes[indice] == null) {
-				encontrado = true;
-			}else if (clientes[indice].getDni().equals(cliente.getDni())) {
-				throw new ExcepcionAlquilerVehiculos("Ya existe un cliente con ese DNI.");
-			}else {
-				indice++;
-			}
-		}
-		return indice;
-	}
-	
 	/**
-	 * Método que elimina un cliente del array de clientes.
+	 * Método que elimina un cliente de la lista de clientes.
 	 * @param dni para buscar el cliente a borrar.
 	 */
 	public void borrarCliente (String dni) {
-		int indice = buscarIndiceCliente(dni);
-		
-		if (indiceNoSuperaTamano(indice)) {
-			desplazarUnaPosicionHaciaLaIzquierda(indice);
+		if(clientes.containsKey(dni)) {
+			clientes.remove(dni);
 		}else {
-			throw new ExcepcionAlquilerVehiculos ("El cliente a borrar no existe.");
+			throw new ExcepcionAlquilerVehiculos("El cliente a borrar no existe.");
 		}
 	}
 	
 	/**
-	 * Cambia la posición de los elementos del array desde el encontrado
-	 * hacia la izquierda para no dejar huecos vacíos entre los distintos
-	 * elementos del array.
-	 * @param indice es la posición del array que ha quedado vacía.
-	 */
-	private void desplazarUnaPosicionHaciaLaIzquierda(int indice) {
-		for (int i = indice; i < clientes.length-1 && clientes[i] != null; i++) {
-			clientes[i] = clientes [i+1];
-		}
-	}
-	
-	/**
-	 * Localiza la posición del array donde se encuentra el cliente buscado.
-	 * @param dni para buscar el cliente.
-	 * @return la posición del array donde se encuentra el cliente buscado.
-	 */
-	private int buscarIndiceCliente(String dni) {
-		int indice = 0;
-		boolean encontrado = false;
-		
-		while (indiceNoSuperaTamano(indice) && !encontrado) {
-			if (clientes[indice] != null && clientes[indice].getDni().equals(dni)) {
-				encontrado = true;
-			}else {
-				indice++;
-			}
-		}
-		return indice;
-	}
-	
-	/**
-	 * Método que obtiene un cliente del array de clientes.
-	 * @param dni del cliente buscado.
-	 * @return devuelve el cliente si lo encuentra o null en caso contrario.
+	 * Método para buscar un cliente de una lista ordena
+	 * @param dni
+	 * @return el cliente si hay coincidecia o null si no existe
 	 */
 	public Cliente buscarCliente (String dni) {
-		int indice = buscarIndiceCliente(dni);
-		
-		if (indiceNoSuperaTamano(indice)) {
-			return new Cliente(clientes[indice]);
+		if(clientes.containsKey(dni)) {
+			return new Cliente(clientes.get(dni));
 		}else {
-			return null;
+			throw new ExcepcionAlquilerVehiculos ("El cliente introducido no existe.");
 		}
 	}
 	
+	/**
+	 * Asigna el id a los clientes.
+	 * @return el identificador asignado alúltimo cliente
+	 */
 	private int calcularUltimoIdentificador() {
 		int ultimoIdentificador = 0;
-		int i = 0;
-		
-		while(clientes[i] != null) {
-			if(clientes[i].getIdentificador() > ultimoIdentificador) {
-				ultimoIdentificador = clientes[i].getIdentificador();
+				
+		for (Cliente cliente : clientes.values()) {
+			if(cliente.getIdentificador() > ultimoIdentificador) {
+				ultimoIdentificador = cliente.getIdentificador();
 			}
-			i++;
-		}	
+		}
 		
 		return ultimoIdentificador;
 	}

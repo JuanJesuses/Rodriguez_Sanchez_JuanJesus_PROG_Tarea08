@@ -1,5 +1,7 @@
 package AlquilerVehiculos.mvc.controlador;
 
+import java.util.List;
+
 import AlquilerVehiculos.mvc.modelo.dominio.Alquiler;
 import AlquilerVehiculos.mvc.modelo.dominio.Cliente;
 import AlquilerVehiculos.mvc.modelo.dominio.vehiculo.TipoVehiculo;
@@ -16,6 +18,8 @@ public interface IControladorAlquilerVehiculos {
 	void borrarVehiculo(String matricula);
 
 	Vehiculo buscarVehiculo(String matricula);
+	
+	//List <Vehiculo> obtenerVehiculos();
 
 	Vehiculo[] obtenerVehiculos();
 
@@ -24,12 +28,16 @@ public interface IControladorAlquilerVehiculos {
 	void borrarCliente(String dni);
 
 	Cliente buscarCliente(String dni);
+	
+	List <Cliente> obtenerClientes();
 
-	Cliente[] obtenerClientes();
+	//Cliente[] obtenerClientes();
 
 	void abrirAlquiler(Cliente cliente, Vehiculo vehiculo);
 
 	void cerrarAlquiler(Cliente cliente, Vehiculo vehiculo);
+	
+	//List <Alquiler> obtenerAlquileres();
 
 	Alquiler[] obtenerAlquileres();
 	
